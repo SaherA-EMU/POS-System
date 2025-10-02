@@ -1,0 +1,41 @@
+h1{
+    color: rgb(149, 113, 24);
+    display: block;
+    text-align: center;
+    margin-bottom:20px ;
+}
+body{
+    background-color: rgb(0, 0, 71);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+form{
+    background-color: rgb(0, 0, 71);
+    padding: 20px;
+    border: 2px solid goldenrod;
+    border-radius: 8px;
+    color: goldenrod;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+input[type="text"],input[type="password"]{
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid lightgray;   
+}
+input[type="submit"]{
+    background-color: goldenrod;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    background-color: rgb(130, 99, 20);
+}
