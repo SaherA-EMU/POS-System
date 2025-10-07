@@ -41,7 +41,7 @@ body{
     border: goldenrod 2px solid;
     border-radius: 10px;
     height: 80vh;
-    background-image: linear-gradient(var(--bgc-light), var(--accent-navy));
+    background-image: linear-gradient(var(--accent-gold), var(--accent-navy));
 }
 .cart{
     grid-area: 1 / 1 /4 / 5;
@@ -106,15 +106,15 @@ body{
     margin: 5px;
     cursor: pointer;
     background-color:#bfa36f;
-}
+}*/
 .row button:hover{
-    background-color: rgb(200,160,50);
+    background-color: var(--btn-primary-hover);
     transform: scale(1.05);
 }
 .row button:active{
-    background-color: rgb(180,140,40);
+    background-color: rgb(180,140,4);
     transform: scale(0.98);
-}*/
+}
 button{
     height: 3rem;
     width: 1rem;
@@ -129,6 +129,8 @@ button{
     font-weight: 600;
     border: var(--accent-gold) solid 2px;
     background-color: gray;
+    color: var(--text-primary);
+    justify-content: center;
 }
 .payment{
     grid-area: 4 / 1 / 5 / 7;

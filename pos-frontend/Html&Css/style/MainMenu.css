@@ -1,9 +1,33 @@
-body{
-    background-color: rgb(5, 5, 58);
+:root{
+--bgc-black:#121212;
+--bgc-charcoal:#1F1F1F;
+--bgc-light:#f8f8f8;
+
+--text-primary: #ffffff;
+--text-secondary: #1f1f1f;
+--text-highlight: #e5c07B;
+
+--btn-primary: #bfa36f;
+--btn-primary-hover:#a3895c;
+
+--btn-secondary: #2e86AB;
+--btn-secondary-hover: #245E78;
+
+--accent-gold: #CFAE70;
+--accent-navy: #1c2e40;
+--accent-silver: #d9d9d9;
 }
-h1{
-    color: rgb(149, 113, 24);
-    text-align: center;
+body{
+     background-color: var(--bgc-black);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+ h1, h2, h3, h4, h5{
+    color: var(--text-highlight);
+    letter-spacing: 1px;
+    margin-bottom: 0.5em;
 }
 button span{
     display: block;
@@ -14,7 +38,7 @@ button {
     width: 120px;
     border: none;
     border-radius: 10px;
-    color: goldenrod;
+    color: var(--btn-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +52,7 @@ button img{
   margin-bottom: 5px;
 }
 button:hover{
-    background-color: rgb(200,160,50);
+    background-color: var(--btn-primary-hover);
     transform: scale(1.05);
 }
 button:active{
@@ -44,5 +68,5 @@ button:active{
     justify-content: center;
     margin-top: 20px;
     padding-bottom: 150px;
-    background-image: linear-gradient(goldenrod, lightyellow);
+    background-image: linear-gradient(var(--accent-gold), var(--accent-navy));
 }
