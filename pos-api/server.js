@@ -5,12 +5,16 @@
 // Import dependencies
 const express = require('express');
 const pool = require('./db');
+const productsRouter = require('./routes/products');
 
 // Initialize the Express application, which handles HTTP requests and responses
 const app = express();	
 
 // Middleware, parse JSON bodies, necessary for POST requests
-app.use(express.json()); 
+app.use(express.json());
+
+// Register routes for api calls
+app.use('/products', productsRouter);
 
 // Basic route to test the server, request and response
 app.get('/', (req, res) => {
