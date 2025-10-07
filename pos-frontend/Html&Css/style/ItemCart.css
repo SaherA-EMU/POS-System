@@ -18,7 +18,7 @@
 --accent-silver: #d9d9d9;
 }
 body{
-    background-color: var(--bgc-black);
+    background-color: var(--accent-navy);
     color: var(--text-primary);
     margin: 0;
     padding: 0;
@@ -41,7 +41,7 @@ body{
     border: goldenrod 2px solid;
     border-radius: 10px;
     height: 80vh;
-    background-image: linear-gradient(var(--accent-gold), var(--accent-navy));
+    background-image: linear-gradient(var(--accent-gold), var(--accent-silver));
 }
 .cart{
     grid-area: 1 / 1 /4 / 5;
