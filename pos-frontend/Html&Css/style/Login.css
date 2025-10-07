@@ -58,3 +58,6 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background-color: var(--btn-primary-hover)
 }
+input[type="submit"]:active{
+    background-color: goldenrod;
+}
