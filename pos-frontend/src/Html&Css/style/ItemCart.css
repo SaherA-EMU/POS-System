@@ -30,7 +30,7 @@ body{
     margin-bottom: 0.5em;
 }
 
-.container{
+.item-cart-container{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -43,18 +43,18 @@ body{
     height: 80vh;
     background-image: linear-gradient(var(--accent-gold), var(--accent-silver));
 }
-.cart{
+.item-cart-cart{
     grid-area: 1 / 1 /4 / 5;
     margin-right: 20px;
     border: rgb(5, 5, 58) 3px solid;
 }
-.totals{
+.item-cart-totals{
     grid-area: 1/5/2/7;
     border: 3px solid rgb(5, 5, 58);
     padding: 20px;
     height: 2fr;
 }
-.totals span{
+.item-cart-totals span{
     margin: 0px;
     padding: 0px;
     font-size: 14px;
@@ -63,7 +63,7 @@ body{
     display: inline;
 }
 
-.tax, .subtotal, .total{
+.item-cart-tax, .item-cart-subtotal, .item-cart-total{
     float: right;
     padding: 0px;
     border-radius: 5px;
@@ -71,14 +71,14 @@ body{
     border: 2px solid goldenrod;
     width: 70%;
 }   
-.Keypad{
+.item-cart-Keypad{
     grid-area: 2/5/3/7;
     border: 3px solid rgb(5, 5, 58);
     padding: 10px;
     height: fit-content;
     margin :1px;
 }
-.display-box{
+.item-cart-display-box{
     width: 95%;
     height: 25px;
     border: 2px solid goldenrod;
@@ -88,7 +88,7 @@ body{
     text-align: right;
     padding: 2px;
 }
-.row{
+.item-cart-row{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,15 +107,15 @@ body{
     cursor: pointer;
     background-color:#bfa36f;
 }*/
-.row button:hover{
+.item-cart-row button:hover{
     background-color: var(--btn-primary-hover);
     transform: scale(1.05);
 }
-.row button:active{
+.item-cart-row button:active{
     background-color: rgb(180,140,4);
     transform: scale(0.98);
 }
-button{
+.item-cart-container button{
     height: 3rem;
     width: 1rem;
     display: inline-block;
@@ -132,7 +132,7 @@ button{
     color: var(--text-primary);
     justify-content: center;
 }
-.payment{
+.item-cart-payment{
     grid-area: 4 / 1 / 5 / 7;
     border: 3px solid rgb(5, 5, 58);
     padding: 10px;
@@ -140,11 +140,11 @@ button{
     justify-content: center;
 
 }
-.payment button{
+.item-cart-payment button{
     height: 3rem;
     width: 8rem;  
 }
-.search{
+.item-cart-search{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -152,4 +152,4 @@ button{
     border: 2px solid goldenrod;
     border-radius: 4px;
 }
-.div4 { grid-area: 5 / 1 / 6 / 6; }
+.item-cart-div4 { grid-area: 5 / 1 / 6 / 6; }

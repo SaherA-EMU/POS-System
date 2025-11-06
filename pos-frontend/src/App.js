@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
 import MainMenu from './MainMenu';
 import SalesMenu from './SalesMenu';
+import InventoryMenu from './InventoryMenu';
+import ItemCart from './ItemCart';
 
 export default function App() {
   return (
@@ -24,12 +26,14 @@ export default function App() {
       </header>
     </div>
     */
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainMenu />} />
-        <Route path="/sales" element={<SalesMenu />} />
+        <Route path="/SalesMenu" element={<SalesMenu />} />
+        <Route path="/InventoryMenu" element={<InventoryMenu />} />
+        <Route path="/ItemCart" element={<ItemCart />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
     
   );
 }

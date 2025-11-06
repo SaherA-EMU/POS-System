@@ -6,15 +6,15 @@ import { useNavigate } from 'react-router-dom';
 function MainMenu() {
     const navigate = useNavigate();
     
-    const NavigateToSales = () => 
+    const navigateToSales = () => 
         navigate('/SalesMenu'); //navigate to SalesMenu route 
 
-    const NavigateToInventory = () =>{
-        navigate('/InventoryMenu')}; //navigate to InventoryMenu route
+    const navigateToInventory = () =>
+        navigate('/InventoryMenu'); //navigate to InventoryMenu route
    
     return (
   <div className="menu">
-            <button className="sales" onClick={NavigateToSales}>
+            <button className="sales" onClick={navigateToSales}>
                 <img src={require('./Html&Css/images/cashier.png')} alt="Sales Icon"/>
                 <span>Sales</span>
             </button>
@@ -22,7 +22,7 @@ function MainMenu() {
                 <img src={require("./Html&Css/images/employee.png")} alt="Employee Icon"/>
                 <span>Employee</span>
             </button>
-            <button className="inventory" onClick="location.href='InventoryMenu.html'">
+            <button className="inventory" onClick={navigateToInventory}>
                 <img src={require("./Html&Css/images/warehouse.png")} alt="Warehouse Icon"/>
                 <span>Inventory</span>
             </button>
