@@ -153,3 +153,44 @@ body{
     border-radius: 4px;
 }
 .item-cart-div4 { grid-area: 5 / 1 / 6 / 6; }
+
+.cart-message{
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #d4edda;
+    color: #155724;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    border: 1px solid #6e8436;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 1;
+}
+
+.item-box{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 180px;
+    padding: 15px;
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+    color: #c0d21b;
+    background-color: #1e56bd;
+    transition: all 0.2s ease;
+    
+}
+
+.item-box:hover{
+    background-color: #b1cce2;
+    transform: scale(1.03);
+}
+
+.item-cart-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
