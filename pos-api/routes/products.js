@@ -3,32 +3,24 @@ const router = express.Router();
 const pool = require('../db');
 
 router.post('/', async (req, res) => {
-  const { name, category_id, size, color, price, sku, description, initial_quantity } = req.body;
-  try {
-    console.log('Request body:', req.body); // Log input data for debugging
+  const {name, category_id} = req.body;
 
-    // Validate required fields
-    if (!name || !category_id || !price || !sku) {
-      return res.status(400).json({ error: 'Missing required fields: name, category_id, price, or sku' });
-    }
+  // Validate required fields
+  if (!name || !category_id) {
+    return res.status(400).json({ error: 'Name and Category_id are required' });
+  }
+  try {
 
     // Insert into products table
-    const productResult = await pool.query(
-      'INSERT INTO products (category_id, name, size, color, price, sku, description, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING product_id',
-      [category_id, name, size, color, price, sku, description || null] // description is optional
-    );
-    const product_id = productResult.rows[0].product_id;
-
-    // Insert into inventory table
-    await pool.query(
-      'INSERT INTO inventory (product_id, quantity, last_updated) VALUES ($1, $2, CURRENT_TIMESTAMP)',
-      [product_id, initial_quantity]
+    const result = await pool.query(
+      'INSERT INTO products (name, category_id, created_at, updated_at) VALUES ($1, $2, NOW(), NOW()) RETURNING product_id',
+      [name, category_id]
     );
 
     res.status(201).json({ message: 'Product created', product_id });
   } catch (err) {
-    console.error('Error in POST /products:', err.stack, err.message, err.code);
-    res.status(500).json({ error: 'Failed to create product', details: err.message });
+    console.error(err);
+    res.status(500).json({ error: 'Failed to create product'});
   }
 });
 
@@ -37,7 +29,7 @@ router.get('/', async (req, res) => {
   const {id} = req.params;
 
   try{
-    const result = await pool.query('SELECT * FROM products');
+    const result = await pool.query('SELECT product_id, name FROM products');
     res.json(result.rows);
   } catch (err){
     console.error('Error fetching products:', err);

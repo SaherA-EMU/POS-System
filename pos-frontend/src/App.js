@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import MainMenu from './MainMenu';
 import SalesMenu from './SalesMenu';
 import InventoryMenu from './InventoryMenu';

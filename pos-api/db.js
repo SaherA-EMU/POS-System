@@ -4,6 +4,8 @@
 require('dotenv').config({ path: './info.env' });
 const { Pool } = require('pg');
 
+console.log("Using DB:", process.env.DB_CONNECTION_STRING);
+
 const pool = new Pool({
   connectionString: process.env.DB_CONNECTION_STRING,
   ssl: { 

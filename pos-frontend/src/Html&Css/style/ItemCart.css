@@ -189,8 +189,95 @@ body{
     transform: scale(1.03);
 }
 
-.item-cart-products {
+.item-cart-products{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.popup-box{
+    background: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 380px;
+    animation: fadeIn 0.25s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup-options{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.dropdown{
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 2px solid goldenrod;
+    border-radius: 8px;
+    background: #f8f8f8;
+    color: black;
+    min-width: 130px;
+    cursor: pointer;
+}
+
+.variant-add-btn,
+.close-btn{
+    padding: 12px 24px;
+    min-width: 140px;
+    height: 48px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    display: inline-block;
+    border: 2px solid var(--accent-gold);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    line-height: normal;
+}
+
+.variant-add-btn{
+    background: #245E78;
+    color: white;
+}
+
+.variant-add-btn:hover{
+    background: #1b4aa5;
+}
+
+.close-btn{
+    background: #0e2a63;
+    color: white;
+}
+
+.close-btn:hover{
+    background: #618feb;
+}
+
+.popup-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale (0.95);}
+    to {opacity: 1; transform: scale(1);}
 }

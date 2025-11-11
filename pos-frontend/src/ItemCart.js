@@ -7,6 +7,16 @@ export default function ItemCart() {
     const[cart, setCart] = useState([]);
     const [message, setMessage] = useState('');
 
+    // This will store variants for the selected product
+    const [variants, setVariants] = useState([]);
+
+    // We will need this for popup visibility
+    const [showPopup, setShowPopup] = useState(false);
+
+    // User selections inside popup
+    const [selectedSize, setSelectedSize] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");
+
     // Fetch products from the backend
     useEffect(() => {
         fetch('http://localhost:5000/products')
@@ -15,17 +25,52 @@ export default function ItemCart() {
         .catch(err => console.error('Error fetching products:', err));
     }, []);
 
+    // Attempting to now show pop-ups of options for products
+    const openVariantPopup = (product_id) => {
+        fetch(`http://localhost:5000/variants/${product_id}`)
+        .then(res => res.json())
+        .then(data => {
+            setVariants(data);
+            setSelectedSize("");
+            setSelectedColor("");
+            setShowPopup(true);
+        })
+        .catch(err => console.error("Error fetching variants:", err));
+    }
+
     // Add product to cart
-    const addToCart = (product) => {
-        setCart((prevCart) => [...prevCart, product]);
-        setMessage('Added "${product.name}" to cart');
-        setTimeout(() => setMessage(''), 2000);
+    const addToCart = () => {
+        if (!selectedSize || !selectedColor) {
+            setMessage("Please select both size and color.");
+            setTimeout(() => setMessage(""), 2000);
+            return;
+        }
+    
+
+        const chosenVariant = variants.find (
+            (v) => v.size === selectedSize && v.color === selectedColor
+        );
+
+        if (!chosenVariant) {
+            setMessage("That combination is out of stock.");
+            setTimeout(() => setMessage(""), 2000);
+            return;
+        }
+
+        setCart((prevCart) => [...prevCart, chosenVariant]);
+        setMessage(`Added ${chosenVariant.color}/${chosenVariant.size} to cart`);
+        setShowPopup(false);
+        setTimeout(() => setMessage(""), 2000);
     };
 
     // Calculate totals
     const subtotal = cart.reduce((sum, item) => sum + Number(item.price), 0);
     const tax = subtotal * 0.07;
     const total = subtotal + tax;
+
+    // Get unique dropdown options
+    const availableSizes = [...new Set(variants.map((v) => v.size))];
+    const availableColors = [...new Set(variants.map((v) => v.color))];
 
     return (
         <div className="item-cart">
@@ -35,16 +80,57 @@ export default function ItemCart() {
                 <div className="item-cart-products">
                     {products.map(product => (
                     <div
-                        key={product.id}
+                        key={product.product_id}
                         className="item-box"
-                        onClick={() => addToCart(product)}
+                        onClick={() => openVariantPopup(Number(product.product_id))}
                     >
                             <h3>{product.name}</h3>
-                            <p>Price: ${product.price}</p>
-                            <p>SKU: {product.sku}</p>
                     </div>
                     ))}
                 </div>
+                {showPopup && (
+                    <div className="popup">
+                        <div className="popup-box">
+                            <h2>Select Options</h2>
+
+                            <select
+                                value={selectedSize}
+                                onChange={(e) => setSelectedSize(e.target.value)}
+                                className="dropdown"
+                            >
+                                <option value="">Select Size</option>
+                                {availableSizes.map((size) => (
+                                    <option key={size} value={size}>
+                                        {size}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <select
+                                value={selectedColor}
+                                onChange={(e) => setSelectedColor(e.target.value)}
+                                className="dropdown"
+                            >
+                                <option value="">Select Color</option>
+                                {availableColors.map((color) => (
+                                    <option key={color} value={color}>
+                                        {color}
+                                    </option>
+                                ))}
+                            </select>
+                            
+                            <div className="popup-buttons">
+                                <button className="variant-add-btn" onClick={addToCart}>
+                                    Add to Cart
+                                </button>
+
+                                <button className="close-btn" onClick={() => setShowPopup(false)}>
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div className="item-cart-totals">
                     <span>Subtotal:</span>
                         <input 
@@ -52,7 +138,7 @@ export default function ItemCart() {
                             className="item-cart-subtotal" 
                             value={`$${Number(subtotal).toFixed(2)}`} 
                             disabled/><br/>
-                    <span>Tax Amt:</span>
+                    <span>Tax:</span>
                         <input 
                             type="text" 
                             className="item-cart-tax" 
