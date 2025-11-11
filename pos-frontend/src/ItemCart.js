@@ -77,6 +77,7 @@ export default function ItemCart() {
             {message && <div className="cart-message">{message}</div>}
             <input type="search" className="item-cart-search" placeholder="Search.." />
             <div className="item-cart-container">
+               <div className="item-cart-display-area">
                 <div className="item-cart-products">
                     {products.map(product => (
                     <div
@@ -87,6 +88,7 @@ export default function ItemCart() {
                             <h3>{product.name}</h3>
                     </div>
                     ))}
+                </div>
                 </div>
                 {showPopup && (
                     <div className="popup">
@@ -151,7 +153,10 @@ export default function ItemCart() {
                             value={`$${Number(total).toFixed(2)}`} 
                             disabled/><br/>
                 </div>
-                <div className="item-cart-Keypad">
+                <div className="item-cart-cart">
+                    <h2>Cart Items</h2>
+                </div>
+                {/*<div className="item-cart-Keypad">
                     <div className= "item-cart-display">
                         <input type="text" className="item-cart-display-box" disabled />
                     </div>
@@ -175,12 +180,12 @@ export default function ItemCart() {
                         <button className="item-cart-key">.</button>
                         <button className="item-cart-key">c</button>
                     </div>
-                </div>
+                </div> */}
                 <div className="item-cart-payment">
                     <button className="item-cart-POV">Customer POV</button>
                     <button className="item-cart-pay">Pay</button>
                     <button className="item-cart-clear">Clear Cart</button>
-                </div>
+                </div> 
             </div>
         </div>
     );

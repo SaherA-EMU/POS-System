@@ -37,22 +37,28 @@ body{
     grid-column-gap: 1px;
     grid-row-gap: 0px;
     justify-content: space-between;
-    padding: 20px; 
+    padding: 10px; 
     border: goldenrod 2px solid;
     border-radius: 10px;
     height: 80vh;
     background-image: linear-gradient(var(--accent-gold), var(--accent-silver));
 }
-.item-cart-cart{
+.item-cart-display-area{
+    background-image: linear-gradient(var(--text-primary), var(--accent-silver));
     grid-area: 1 / 1 /4 / 5;
-    margin-right: 20px;
+    margin :1px;
+    border-radius: 5px;
     border: rgb(5, 5, 58) 3px solid;
+}
+.item-cart-display-area button{
+    background-color: var(--btn-primary);
 }
 .item-cart-totals{
     grid-area: 1/5/2/7;
     border: 3px solid rgb(5, 5, 58);
     padding: 20px;
     height: 2fr;
+    border-radius: 5px;
 }
 .item-cart-totals span{
     margin: 0px;
@@ -71,12 +77,13 @@ body{
     border: 2px solid goldenrod;
     width: 70%;
 }   
-.item-cart-Keypad{
-    grid-area: 2/5/3/7;
+.item-cart-cart{
+    grid-area: 2/5/4/7;
     border: 3px solid rgb(5, 5, 58);
+    background-image: linear-gradient(var(--text-primary), var(--accent-silver));
     padding: 10px;
-    height: fit-content;
     margin :1px;
+    border-radius: 5px;
 }
 .item-cart-display-box{
     width: 95%;
@@ -138,7 +145,7 @@ body{
     padding: 10px;
     text-align: left;
     justify-content: center;
-
+    border-radius: 5px;
 }
 .item-cart-payment button{
     height: 3rem;
@@ -173,26 +180,26 @@ body{
 .item-box{
     border: 1px solid #ccc;
     border-radius: 10px;
-    width: 180px;
+    width: 75px;
     padding: 15px;
     margin: 10px;
     cursor: pointer;
     text-align: center;
     color: #c0d21b;
-    background-color: #1e56bd;
+    background-color: var(--btn-secondary);
     transition: all 0.2s ease;
     
 }
 
 .item-box:hover{
-    background-color: #b1cce2;
+    background-color: var(--btn-secondary-hover);
     transform: scale(1.03);
 }
 
 .item-cart-products{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 }
 
 .popup{
