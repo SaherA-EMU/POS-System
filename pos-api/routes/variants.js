@@ -8,7 +8,7 @@ router.get('/:product_id', async (req, res) => {
     const {product_id} = req.params;
     try {
         const result = await pool.query(
-            `SELECT variant_id, product_id, size, color, price, stock_quantity FROM product_variant WHERE product_id = $1`,
+            `SELECT variant_id, product_id, size, color, price, quantity FROM product_variant WHERE product_id = $1`,
             [product_id]
         );
         res.json(result.rows);
