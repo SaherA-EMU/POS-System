@@ -154,7 +154,8 @@ export default function ItemCart() {
                             disabled/><br/>
                 </div>
                 <div className="item-cart-cart">
-                    <h2>Cart Items</h2>
+                    <h3>Cart Items</h3>
+                    <pre><h6>Name:      Size:       Color:      Price:</h6></pre>
                 </div>
                 {/*<div className="item-cart-Keypad">
                     <div className= "item-cart-display">
@@ -182,9 +183,16 @@ export default function ItemCart() {
                     </div>
                 </div> */}
                 <div className="item-cart-payment">
-                    <button className="item-cart-POV">Customer POV</button>
-                    <button className="item-cart-pay">Pay</button>
                     <button className="item-cart-clear">Clear Cart</button>
+                    <button className="item-cart-cash">Cash</button>
+                    <button className="item-cart-card">Card</button>
+                    <button className="button4">4</button>
+                    <button className="button5">5</button>
+                    <button className="button6">6</button>
+                    <button className="button7">7</button>
+                    <button className="button8">8</button>
+                    <button className="button9">9</button>
+                    <button className="button10">10</button>
                 </div> 
             </div>
         </div>
