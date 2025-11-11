@@ -1,1 +1,9 @@
+# Node dependencies
+node_modules/
+pos-api/node_modules/
+pos-frontend/node_modules/
+
+# Environment keys
+*.env
+info.env
 pos-api/info.env
