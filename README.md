@@ -18,3 +18,5 @@ npm install nodemon --save-dev
 npm install express pg
 
 npm install axios
+
+nmp install concurrently
