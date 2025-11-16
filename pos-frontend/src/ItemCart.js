@@ -26,11 +26,16 @@ export default function ItemCart() {
     }, []);
 
     // Attempting to now show pop-ups of options for products
-    const openVariantPopup = (product_id) => {
-        fetch(`http://localhost:5000/variants/${product_id}`)
+    const openVariantPopup = (product) => {
+        fetch(`http://localhost:5000/variants/${product.product_id}`)
         .then(res => res.json())
         .then(data => {
-            setVariants(data);
+
+            const include_name = data.map(varient => ({
+                ...varient,
+                product_name: product.name
+            }));
+            setVariants(include_name);
             setSelectedSize("");
             setSelectedColor("");
             setShowPopup(true);
@@ -47,21 +52,42 @@ export default function ItemCart() {
         }
     
 
-        const chosenVariant = variants.find (
-            (v) => v.size === selectedSize && v.color === selectedColor
+        const itemChosen = variants.find (
+            (category) => category.size === selectedSize && category.color === selectedColor
         );
 
-        if (!chosenVariant) {
+        if (!itemChosen) {
             setMessage("That combination is out of stock.");
             setTimeout(() => setMessage(""), 2000);
             return;
         }
 
-        setCart((prevCart) => [...prevCart, chosenVariant]);
-        setMessage(`Added ${chosenVariant.color}/${chosenVariant.size} to cart`);
+        // Count same variant already in the cart
+        const alreadyInCart = cart.filter(
+            (item) =>
+                item.size === itemChosen.size &&
+                item.color === itemChosen.color &&
+                item.product_id === itemChosen.product_id
+        ).length;
+
+        if (alreadyInCart >= itemChosen.quantity) {
+            setMessage("No more in stock for that variant!");
+            setTimeout(() => setMessage(""), 2000);
+            return;
+        }
+
+        setCart((prevCart) => [...prevCart, itemChosen]);
+        setMessage(`Added ${itemChosen.color}/${itemChosen.size} to cart`);
         setShowPopup(false);
         setTimeout(() => setMessage(""), 2000);
     };
+
+    // Remove an item from the cart
+    const removeFromCart = (itemToRemove) => {
+        setCart((prevCart) => prevCart.filter((_, index) => index !== itemToRemove));
+        setMessage("Item removed from cart");
+        setTimeout(() => setMessage(""), 1500);
+    }
 
     // Calculate totals
     const subtotal = cart.reduce((sum, item) => sum + Number(item.price), 0);
@@ -69,8 +95,10 @@ export default function ItemCart() {
     const total = subtotal + tax;
 
     // Get unique dropdown options
-    const availableSizes = [...new Set(variants.map((v) => v.size))];
-    const availableColors = [...new Set(variants.map((v) => v.color))];
+    const availableSizes = [...new Set(variants.map(v => v.size.trim())
+    )].sort((a, b) => parseFloat(a) - parseFloat(b));
+    
+    const availableColors = [...new Set(variants.map(v => v.color))];
 
     return (
         <div className="item-cart">
@@ -83,7 +111,7 @@ export default function ItemCart() {
                     <div
                         key={product.product_id}
                         className="item-box"
-                        onClick={() => openVariantPopup(Number(product.product_id))}
+                        onClick={() => openVariantPopup(product)}
                     >
                             <h3>{product.name}</h3>
                     </div>
@@ -122,78 +150,105 @@ export default function ItemCart() {
                             </select>
                             
                             <div className="popup-buttons">
-                                <button className="variant-add-btn" onClick={addToCart}>
+                                <button className="variant-add-button" onClick={addToCart}>
                                     Add to Cart
                                 </button>
 
-                                <button className="close-btn" onClick={() => setShowPopup(false)}>
+                                <button className="close-button" onClick={() => setShowPopup(false)}>
                                     Close
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
-                <div className="item-cart-totals">
-                    <span>Subtotal:</span>
-                        <input 
-                            type="text" 
-                            className="item-cart-subtotal" 
-                            value={`$${Number(subtotal).toFixed(2)}`} 
-                            disabled/><br/>
-                    <span>Tax:</span>
-                        <input 
-                            type="text" 
-                            className="item-cart-tax" 
-                            value={`$${Number(tax).toFixed(2)}`} 
-                            disabled/><br/>
-                    <span>Total:</span>
-                        <input 
-                            type="text" 
-                            className="item-cart-total" 
-                            value={`$${Number(total).toFixed(2)}`} 
-                            disabled/><br/>
-                </div>
                 <div className="item-cart-cart">
-                    <h3>Cart Items</h3>
-                    <pre><h6>Name:      Size:       Color:      Price:</h6></pre>
+                        <h3>Cart Items</h3>
+                        <div className="cart-header">
+                            <span>Name</span>
+                            <span>Size</span>
+                            <span>Color</span>
+                            <span>Price</span>
+                            <span>Remove</span>
+                        </div>
+                        <div className="cart-list">
+                            {cart.length === 0 && (
+                                <p>No items in cart</p>
+                            )}
+
+                            {cart.length > 0 && (
+                                cart.map((item, index) => {
+                                    return (
+                                        <div className="cart-row" key={index}>
+                                            {/*Show the item information*/}
+                                            <span>{item.product_name || "Item"}</span>
+                                            <span>{item.size}</span>
+                                            <span>{item.color}</span>
+                                            <span>${Number(item.price).toFixed(2)}</span>
+
+                                            <button
+                                                className="remove-button"
+                                                onClick={() => removeFromCart(index)}
+                                            >
+                                                X
+                                            </button>
+                                        </div>
+                                    );
+                                })
+                            )}
+                        </div>
+                    </div>
+                <div className="right-column">
+                    <div className="item-cart-totals">
+                        <span>Subtotal:</span>
+                            <input 
+                                type="text" 
+                                className="item-cart-subtotal" 
+                                value={`$${Number(subtotal).toFixed(2)}`} 
+                                disabled/><br/>
+                        <span>Tax:</span>
+                            <input 
+                                type="text" 
+                                className="item-cart-tax" 
+                                value={`$${Number(tax).toFixed(2)}`} 
+                                disabled/><br/>
+                        <span>Total:</span>
+                            <input 
+                                type="text" 
+                                className="item-cart-total" 
+                                value={`$${Number(total).toFixed(2)}`} 
+                                disabled/><br/>
+                    </div>
+                    
+                    {/*<div className="item-cart-Keypad">
+                        <div className= "item-cart-display">
+                            <input type="text" className="item-cart-display-box" disabled />
+                        </div>
+                        <div className="item-cart-row">
+                            <button className="item-cart-key">7</button>
+                            <button className="item-cart-key">8</button>
+                            <button className="item-cart-key">9</button>
+                        </div>
+                        <div className="item-cart-row">
+                            <button className="item-cart-key">4</button>
+                            <button className="item-cart-key">5</button>
+                            <button className="item-cart-key">6</button>
+                        </div>
+                        <div className="item-cart-row">
+                            <button className="item-cart-key">1</button>
+                            <button className="item-cart-key">2</button>
+                            <button className="item-cart-key">3</button>
+                        </div>
+                        <div className="item-cart-row">
+                            <button className="item-cart-key">0</button>
+                            <button className="item-cart-key">.</button>
+                            <button className="item-cart-key">c</button>
+                        </div>
+                    </div> */}
+                    <div className="item-cart-payment">
+                        <button className="item-cart-cash">Cash</button>
+                        <button className="item-cart-card">Card</button>
+                    </div> 
                 </div>
-                {/*<div className="item-cart-Keypad">
-                    <div className= "item-cart-display">
-                        <input type="text" className="item-cart-display-box" disabled />
-                    </div>
-                    <div className="item-cart-row">
-                        <button className="item-cart-key">7</button>
-                        <button className="item-cart-key">8</button>
-                        <button className="item-cart-key">9</button>
-                    </div>
-                    <div className="item-cart-row">
-                        <button className="item-cart-key">4</button>
-                        <button className="item-cart-key">5</button>
-                        <button className="item-cart-key">6</button>
-                    </div>
-                    <div className="item-cart-row">
-                        <button className="item-cart-key">1</button>
-                        <button className="item-cart-key">2</button>
-                        <button className="item-cart-key">3</button>
-                    </div>
-                    <div className="item-cart-row">
-                        <button className="item-cart-key">0</button>
-                        <button className="item-cart-key">.</button>
-                        <button className="item-cart-key">c</button>
-                    </div>
-                </div> */}
-                <div className="item-cart-payment">
-                    <button className="item-cart-clear">Clear Cart</button>
-                    <button className="item-cart-cash">Cash</button>
-                    <button className="item-cart-card">Card</button>
-                    <button className="button4">4</button>
-                    <button className="button5">5</button>
-                    <button className="button6">6</button>
-                    <button className="button7">7</button>
-                    <button className="button8">8</button>
-                    <button className="button9">9</button>
-                    <button className="button10">10</button>
-                </div> 
             </div>
         </div>
     );
