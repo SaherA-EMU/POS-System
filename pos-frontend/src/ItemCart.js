@@ -116,17 +116,17 @@ export default function ItemCart() {
     return (
         <div className="item-cart">
             {message && <div className="cart-message">{message}</div>}
-            <div className='cartnavDiv'>
-                <button className='cartnavbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
-                <ul className='cartnavMenu' hidden={!menuOpen}>
-                <button className='homeBtn' onClick={navigateToHome}>Home</button>
-                <button className='salesBtn' onClick={navigateToSales}>Sales</button>
-                <button className='empBtn'onClick={navigateToEmployee}>Employee</button>
-                <button className='InvBtn' onClick={navigateToInventory}> Inventory</button>
-                </ul>
-            </div>
             <div className="item-cart-container">
                <div className="item-cart-display-area">
+                    <div className='cartnavDiv'>
+                        <button className='cartnavbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
+                        <ul className='cartnavMenu' hidden={!menuOpen}>
+                        <button className='homeBtn' onClick={navigateToHome}>Home</button>
+                        <button className='salesBtn' onClick={navigateToSales}>Sales</button>
+                        <button className='empBtn'onClick={navigateToInventory}>Employee</button>
+                        <button className='admBtn'> Admin</button>
+                        </ul>
+                    </div>
                 <div className="item-cart-products">
                     {products.map(product => (
                     <div
@@ -193,7 +193,7 @@ export default function ItemCart() {
                         </div>
                         <div className="cart-list">
                             {cart.length === 0 && (
-                                <p>No items in cart</p>
+                                <p className="empty-cart-msg">No items in cart</p>
                             )}
 
                             {cart.length > 0 && (

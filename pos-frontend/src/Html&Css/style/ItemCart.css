@@ -344,6 +344,11 @@ body{
     overflow-y: auto;
 }
 
+.empty-cart-msg{
+    color: black;
+    font-weight: 600;
+}
+
 .remove-button{
     background-color: #a11;
     color: white;
@@ -375,39 +380,66 @@ body{
     align-items: stretch;
 }
 
+.cartnavDiv{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.cartnavbar{
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    background-color: var(--accent-navy);
+    border: 2px solid var(--accent-gold);
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartnavMenu{
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: var(--accent-navy);
+    border: 2pn solid var(--accent-gold);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999;
+}
+
+.cartnavMenu[hidden]{
+    display: none;
+}
+
+.cartnavMenu:not([hidden]){
+    display: flex;
+}
+
+.cartnavMenu button{
+    width: 120px;
+    height: 40px;
+    background-color: var(--btn-secondary);
+    border: 2px solid var(--accent-gold);
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+}
+
+.cartnavMenu button:hover{
+    background-color: var(--btn-secondary-hover);
+}
+
 @keyframes fadeIn {
     from {opacity: 0; transform: scale (0.95);}
     to {opacity: 1; transform: scale(1);}
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.cartnavDiv {
-    position: absolute;
-    top: 625px;
-    left: 0px;
-}
-.cartnavDiv button{
-    font-size: 30px;
-    background: none;
-    border: solid 1px var(--text-primary);
-    color: var(--text-primary);
-    cursor: pointer;
-    width: 90px;
-    height: 90px;
-    border-radius: 5px;
-    display: inline-block;
-}
-.cartnavMenu button{
-    font-size: 20px;
-    background-color: var(--bgc-charcoal);
-    color: var(--text-primary);
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px;
-    width: 90px;
-    height: 90px;
-    text-align: left;
 }
