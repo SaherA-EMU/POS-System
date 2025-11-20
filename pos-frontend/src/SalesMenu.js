@@ -15,6 +15,8 @@ export default function SalesMenu() {
             navigate('/SalesMenu'); //navigate to SalesMenu route 
         const navigateToInventory = () =>
             navigate('/InventoryMenu'); //navigate to InventoryMenu route
+        const navigateToEmployee = () =>
+            navigate('/EmployeeMenu'); //navigate to EmployeeMenu route
     
     return (
         
@@ -24,8 +26,8 @@ export default function SalesMenu() {
                 <ul className='navMenu' hidden={!menuOpen}>
                 <button onClick={navigateToHome}>Home</button>
                 <button onClick={navigateToSales}>Sales</button>
-                <button onClick={navigateToInventory}>Employee</button>
-                <button>Admin</button>
+                <button onClick={navigateToEmployee}>Employee</button>
+                <button onClick={navigateToInventory}>Inventory</button>
                 </ul>
             </div>
             <button className="History" onClick={ () => alert('this feature is not available yet')}>

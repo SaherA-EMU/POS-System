@@ -121,10 +121,10 @@ export default function ItemCart() {
                     <div className='cartnavDiv'>
                         <button className='cartnavbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
                         <ul className='cartnavMenu' hidden={!menuOpen}>
-                        <button className='homeBtn' onClick={navigateToHome}>Home</button>
-                        <button className='salesBtn' onClick={navigateToSales}>Sales</button>
-                        <button className='empBtn'onClick={navigateToInventory}>Employee</button>
-                        <button className='admBtn'> Admin</button>
+                        <button onClick={navigateToHome}>Home</button>
+                        <button onClick={navigateToSales}>Sales</button>
+                        <button onClick={navigateToEmployee}>Employee</button>
+                        <button onClick={navigateToInventory}>Inventory</button>
                         </ul>
                     </div>
                 <div className="item-cart-products">
