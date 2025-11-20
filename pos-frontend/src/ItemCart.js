@@ -1,7 +1,18 @@
 import React, {useState, useEffect} from "react";
 import './Html&Css/style/ItemCart.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function ItemCart() {
+    const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = React.useState(false);
+        
+        const navigateToHome = () => 
+            navigate('/'); //navigate to Home route
+        const navigateToSales = () => 
+            navigate('/SalesMenu'); //navigate to SalesMenu route 
+        const navigateToInventory = () =>
+            navigate('/InventoryMenu'); //navigate to InventoryMenu route
+
 
     const[products, setProducts] = useState([]);
     const[cart, setCart] = useState([]);
@@ -103,7 +114,15 @@ export default function ItemCart() {
     return (
         <div className="item-cart">
             {message && <div className="cart-message">{message}</div>}
-            <input type="search" className="item-cart-search" placeholder="Search.." />
+            <div className='cartnavDiv'>
+                <button className='cartnavbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
+                <ul className='cartnavMenu' hidden={!menuOpen}>
+                <button className='homeBtn' onClick={navigateToHome}>Home</button>
+                <button className='salesBtn' onClick={navigateToSales}>Sales</button>
+                <button className='empBtn'onClick={navigateToInventory}>Employee</button>
+                <button className='admBtn'> Admin</button>
+                </ul>
+            </div>
             <div className="item-cart-container">
                <div className="item-cart-display-area">
                 <div className="item-cart-products">

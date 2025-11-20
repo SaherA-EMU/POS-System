@@ -5,15 +5,26 @@ import { useNavigate } from 'react-router-dom';
    
 function MainMenu() {
     const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = React.useState(false);
     
+    const navigateToHome = () => 
+        navigate('/'); //navigate to Home route
     const navigateToSales = () => 
         navigate('/SalesMenu'); //navigate to SalesMenu route 
-
     const navigateToInventory = () =>
         navigate('/InventoryMenu'); //navigate to InventoryMenu route
    
-    return (
+    return (    
   <div className="menu">
+            <div className='navDiv'>
+                <button className='navbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
+                <ul className='navMenu' hidden={!menuOpen}>
+                <button onClick={navigateToHome}>Home</button>
+                <button onClick={navigateToSales}>Sales</button>
+                <button onClick={navigateToInventory}>Employee</button>
+                <button>Admin</button>
+                </ul>
+            </div>
             <button className="sales" onClick={navigateToSales}>
                 <img src={require('./Html&Css/images/cashier.png')} alt="Sales Icon"/>
                 <span>Sales</span>

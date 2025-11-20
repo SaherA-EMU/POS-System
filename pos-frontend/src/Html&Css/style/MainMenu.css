@@ -70,3 +70,34 @@ button:active{
     padding-bottom: 150px;
     background-image: linear-gradient(var(--accent-gold), var(--accent-silver));
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navDiv {
+  position: absolute;
+    top: 15px;
+    left: 0px;
+}
+.navDiv button{
+    font-size: 30px;
+    background: none;
+    border: solid 1px var(--text-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    width: 90px;
+    height: 90px;
+    border-radius: 5px;
+}
+.navMenu button{
+    font-size: 20px;
+    background-color: var(--bgc-charcoal);
+    color: var(--text-primary);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    width: 90px;
+    height: 90px;
+    text-align: left;
+}
