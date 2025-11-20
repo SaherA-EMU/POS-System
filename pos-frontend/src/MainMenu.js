@@ -13,7 +13,8 @@ function MainMenu() {
         navigate('/SalesMenu'); //navigate to SalesMenu route 
     const navigateToInventory = () =>
         navigate('/InventoryMenu'); //navigate to InventoryMenu route
-   
+   const navigateToEmployee = () =>
+       navigate('/EmployeeMenu'); //navigate to EmployeeMenu route
     return (    
   <div className="menu">
             <div className='navDiv'>
@@ -21,8 +22,8 @@ function MainMenu() {
                 <ul className='navMenu' hidden={!menuOpen}>
                 <button onClick={navigateToHome}>Home</button>
                 <button onClick={navigateToSales}>Sales</button>
-                <button onClick={navigateToInventory}>Employee</button>
-                <button>Admin</button>
+                <button onClick={navigateToEmployee}>Employee</button>
+                <button onClick={navigateToInventory}>Inventory</button>
                 </ul>
             </div>
             <button className="sales" onClick={navigateToSales}>

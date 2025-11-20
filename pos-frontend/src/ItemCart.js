@@ -12,6 +12,8 @@ export default function ItemCart() {
             navigate('/SalesMenu'); //navigate to SalesMenu route 
         const navigateToInventory = () =>
             navigate('/InventoryMenu'); //navigate to InventoryMenu route
+        const navigateToEmployee = () =>
+            navigate('/EmployeeMenu'); //navigate to EmployeeMenu route
 
 
     const[products, setProducts] = useState([]);
@@ -119,8 +121,8 @@ export default function ItemCart() {
                 <ul className='cartnavMenu' hidden={!menuOpen}>
                 <button className='homeBtn' onClick={navigateToHome}>Home</button>
                 <button className='salesBtn' onClick={navigateToSales}>Sales</button>
-                <button className='empBtn'onClick={navigateToInventory}>Employee</button>
-                <button className='admBtn'> Admin</button>
+                <button className='empBtn'onClick={navigateToEmployee}>Employee</button>
+                <button className='InvBtn' onClick={navigateToInventory}> Inventory</button>
                 </ul>
             </div>
             <div className="item-cart-container">
