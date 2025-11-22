@@ -13,8 +13,10 @@ export default function InventoryMenu() {
             navigate('/SalesMenu'); //navigate to SalesMenu route 
         const navigateToInventory = () =>
             navigate('/InventoryMenu'); //navigate to InventoryMenu route
-       const navigateToEmployee = () =>
+        const navigateToEmployee = () =>
            navigate('/EmployeeMenu'); //navigate to EmployeeMenu route
+        const navigateToItemLookup = () =>
+            navigate('/ItemLookUp'); //navigate to ItemLookUp route
     return (
         <div class="menu">
             <div className='navDiv'>
@@ -26,7 +28,7 @@ export default function InventoryMenu() {
                 <button onClick={navigateToInventory}>Inventory</button>
                 </ul>
             </div>
-            <button class="ItemLookUp" onclick="alert('this feature is not available yet')">
+            <button className="ItemLookUp" onClick={navigateToItemLookup}>
                 <img src={require('./Html&Css/images/loupe.png')} alt="Item Look Up Icon" />
                 <span> Item Look Up</span>
             </button>

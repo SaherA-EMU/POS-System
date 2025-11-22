@@ -6,6 +6,7 @@ import SalesMenu from './SalesMenu';
 import InventoryMenu from './InventoryMenu';
 import ItemCart from './ItemCart';
 import ProductPage from './ProductPage';
+import ItemLookUp from './ItemLookUp';
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/InventoryMenu" element={<InventoryMenu />} />
         <Route path="/ItemCart" element={<ItemCart />} />
         <Route path="/ProductPage" element={<ProductPage />} />
+        <Route path="/ItemLookUp" element={<ItemLookUp />} />
       </Routes>
     </BrowserRouter>
     
