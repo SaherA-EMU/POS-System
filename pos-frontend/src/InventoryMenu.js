@@ -17,8 +17,10 @@ export default function InventoryMenu() {
            navigate('/EmployeeMenu'); //navigate to EmployeeMenu route
         const navigateToItemLookup = () =>
             navigate('/ItemLookUp'); //navigate to ItemLookUp route
+        const navigateToAddItem = () =>
+            navigate('/AddItem'); //navigate to AddItem route
     return (
-        <div class="menu">
+        <div className="menu">
             <div className='navDiv'>
                 <button className='navbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
                 <ul className='navMenu' hidden={!menuOpen}>
@@ -32,11 +34,11 @@ export default function InventoryMenu() {
                 <img src={require('./Html&Css/images/loupe.png')} alt="Item Look Up Icon" />
                 <span> Item Look Up</span>
             </button>
-            <button class="AddItem" onclick="alert('this feature is not available yet')">
+            <button className="AddItem" onClick={navigateToAddItem}>
                 <img src={require('./Html&Css/images/add.png')} alt="Add Item Icon"/>
                 <span> Add Item</span>
             </button>
-            <button class="LostItem" onclick="alert('this feature is not available yet')">
+            <button className="LostItem" onClick={() => alert('this feature is not available yet')}>
                 <img src={require('./Html&Css/images/lost-items.png')} alt="LostItem" />
                 <span> Lost Item</span>
             </button>

@@ -5,6 +5,7 @@ import SalesMenu from './SalesMenu';
 import InventoryMenu from './InventoryMenu';
 import ItemCart from './ItemCart';
 import ItemLookUp from './ItemLookUp';
+import AddItem from './AddItem';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/InventoryMenu" element={<InventoryMenu />} />
         <Route path="/ItemCart" element={<ItemCart />} />
         <Route path="/ItemLookUp" element={<ItemLookUp />} />
+        <Route path="/AddItem" element={<AddItem />} />
       </Route>
     </Routes>
   );
