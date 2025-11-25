@@ -28,7 +28,7 @@ function MainMenu() {
                 {isManager && <button onClick={navigateToInventory}>Inventory</button>}
                 
                 {/*LOGOUT BUTTON*/}
-                <div style={{ marginTop: '20px', padding: '10px', borderTop: '1px solid #444' }}>
+                <div>
                         <small>Logged in as: <strong>{user?.username || 'User'}</strong></small>
                         <button 
                             onClick={logout}
