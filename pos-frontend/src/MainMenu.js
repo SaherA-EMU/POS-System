@@ -24,8 +24,8 @@ function MainMenu() {
                 <ul className='navMenu' hidden={!menuOpen}>
                 <button onClick={navigateToHome}>Home</button>
                 <button onClick={navigateToSales}>Sales</button>
-                {isManager && <button onClick={navigateToEmployee}>Employee</button>}
-                {isManager && <button onClick={navigateToInventory}>Inventory</button>}
+                {<button onClick={navigateToEmployee}>Employee</button>}
+                {<button onClick={navigateToInventory}>Inventory</button>}
                 
                 {/*LOGOUT BUTTON*/}
                 <div>
@@ -54,7 +54,7 @@ function MainMenu() {
                 <span>Sales</span>
             </button>
 
-            {isManager ? (
+            
             <>
                 <button className="employee" onClick={ () => alert('this feature is not available yet')}>
                     <img src={require("./Html&Css/images/employee.png")} alt="Employee Icon"/>
@@ -69,11 +69,7 @@ function MainMenu() {
                     <span> Admin </span>
                 </button>
             </>
-            ) : (
-                <p style={{ padding: '20px', color: '#888' }}>
-                    Logged in as Cashier. Limited access.
-                </p>
-            )}
+            
         </div> 
     );
 }

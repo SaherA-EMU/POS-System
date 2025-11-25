@@ -5,7 +5,6 @@ import '../Html&Css/style/Login.css';
 
 export default function Login() {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -15,14 +14,14 @@ export default function Login() {
 
     // Mock user database (replace with real API later)
     const users = {
-      cashier: { username: 'cashier', password: '123', role: 'cashier' },
-      manager: { username: 'manager', password: '123', role: 'manager' },
-      admin: { username: 'admin', password: 'admin123', role: 'manager' }
+      cashier: { username: 'cashier', role: 'cashier' },
+      manager: { username: 'manager', role: 'manager' },
+      admin: { username: 'admin', role: 'manager' }
     };
 
     const user = users[username];
 
-    if (user && user.password === password) {
+    if (user) {
       // Save user session
       localStorage.setItem('user', JSON.stringify({
         username: user.username,
@@ -30,7 +29,7 @@ export default function Login() {
       }));
       navigate('/');
     } else {
-      setError('Invalid username or password');
+      setError('Invalid username');
     }
   };
 
@@ -46,15 +45,8 @@ export default function Login() {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <button type="submit">Login</button>
+          <button style={{ height:'auto', width:'auto' }} type="submit">Login</button>
 
           <div style={{ marginTop: '20px', fontSize: '0.9em', color: '#555' }}>
             <p><strong>Test Accounts:</strong></p>
