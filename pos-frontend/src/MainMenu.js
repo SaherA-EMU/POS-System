@@ -64,10 +64,12 @@ function MainMenu() {
                     <img src={require("./Html&Css/images/warehouse.png")} alt="Warehouse Icon"/>
                     <span>Inventory</span>
                 </button>
-                <button className="Admin" alt="idk icon" onClick={() => alert('this feature is not available yet')}>
+                {/*dont uncomment this until admin feature is ready
+                  
+                  <button className="Admin" alt="idk icon" onClick={() => alert('this feature is not available yet')}>
                     <img src={require("./Html&Css/images/user.png")} alt="Admin Icon"/>
                     <span> Admin </span>
-                </button>
+                </button>*/}
             </>
             
         </div> 
