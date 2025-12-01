@@ -7,6 +7,7 @@ import ItemCart from './ItemCart';
 import ItemLookUp from './ItemLookUp';
 import AddItem from './AddItem';
 import ProtectedRoute from './components/ProtectedRoute';
+import TransactionHistory from "./TransactionHistory";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/ItemCart" element={<ItemCart />} />
         <Route path="/ItemLookUp" element={<ItemLookUp />} />
         <Route path="/AddItem" element={<AddItem />} />
+        <Route path="/TransactionHistory" element={<TransactionHistory />} />
+
       </Route>
     </Routes>
   );

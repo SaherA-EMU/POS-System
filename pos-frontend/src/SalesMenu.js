@@ -30,7 +30,10 @@ export default function SalesMenu() {
                 <button onClick={navigateToInventory}>Inventory</button>
                 </ul>
             </div>
-            <button className="History" onClick={ () => alert('this feature is not available yet')}>
+            <button 
+                className="History" 
+                onClick={() => navigate("/TransactionHistory")}
+                >
                 <img src={require('./Html&Css/images/history.png')} alt="History Icon" />
                 <span> Transaction History</span>
             </button>

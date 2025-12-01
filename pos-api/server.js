@@ -8,6 +8,7 @@ const pool = require('./db');
 const productsRouter = require('./routes/products');
 const cors = require('cors');
 const variantsRouter = require('./routes/variants');
+const salesRouter = require('./routes/sales');
 
 
 // Initialize the Express application, which handles HTTP requests and responses
@@ -16,10 +17,12 @@ const app = express();
 // Middleware, parse JSON bodies, necessary for POST requests
 app.use(express.json());
 app.use(cors());
-app.use('/variants', variantsRouter);
 
 // Register routes for api calls
+app.use('/variants', variantsRouter);
+
 app.use('/products', productsRouter);
+app.use('/sales', salesRouter);
 
 // Basic route to test the server, request and response
 app.get('/', (req, res) => {

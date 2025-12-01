@@ -107,6 +107,52 @@ export default function ItemCart() {
     const tax = subtotal * 0.07;
     const total = subtotal + tax;
 
+    // Complete the sale
+    const completeSale = async(paymentType) => {
+        if(cart.length === 0) {
+            setMessage("Cannot complete empty sale");
+            return;
+        }
+
+        const saleData = {
+            employee_id: 1,
+            payment_type: paymentType,
+            subtotal,
+            tax,
+            total,
+            sale_items: cart.map(item => ({
+                product_id: item.product_id,
+                size: item.size,
+                color: item.color,
+                price: item.price
+            }))
+        };
+
+        try{
+            const res = await fetch("http://localhost:5000/sales/complete", {
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify(saleData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Sale failed");
+            }
+
+            setCart([]);
+            setMessage("Transaction completed successfully");
+
+            setTimeout(() => {
+                navigate("/");
+            }, 1200);
+        } catch (err){
+            console.error(err);
+            setMessage("Error completing transaction");
+        }
+    };
+
     // Get unique dropdown options
     const availableSizes = [...new Set(variants.map(v => v.size.trim())
     )].sort((a, b) => parseFloat(a) - parseFloat(b));
@@ -266,8 +312,15 @@ export default function ItemCart() {
                         </div>
                     </div> */}
                     <div className="item-cart-payment">
-                        <button className="item-cart-cash">Cash</button>
-                        <button className="item-cart-card">Card</button>
+                        <button 
+                            className="item-cart-cash"
+                            onClick= {() => completeSale("cash")}
+                        >Cash</button>
+
+                        <button 
+                            className="item-cart-card"
+                            onClick= {() => completeSale("card")}
+                        >Card</button>
                     </div> 
                 </div>
             </div>
