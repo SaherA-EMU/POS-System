@@ -144,12 +144,15 @@ export default function ItemCart() {
                 throw new Error(data.error || "Sale failed");
             }
 
+            // Clear cart and log out the current user after successful sale
             setCart([]);
             setMessage("Transaction completed successfully");
 
+            // log out the user and redirect to login
+            logout();
             setTimeout(() => {
-                navigate("/");
-            }, 1200);
+                navigate('/login');
+            }, 800);
         } catch (err){
             console.error(err);
             setMessage("Error completing transaction");

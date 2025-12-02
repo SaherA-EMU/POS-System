@@ -1,15 +1,32 @@
 import './Html&Css/style/MainMenu.css';
 import React from 'react';
 import { useAuth } from './Context/AuthContext';
+import ManagerOverrideModal from './components/ManagerOverrideModal';
 import { useNavigate } from 'react-router-dom';
 
 export default function SalesMenu() {
         const navigate = useNavigate();
-        const { currentUser, logout } = useAuth();
+        const { currentUser, logout, isManager } = useAuth();
 
         const navigateToItemCart = () => 
          navigate('/ItemCart');
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [showManagerModal, setShowManagerModal] = React.useState(false);
+    const [pendingRoute, setPendingRoute] = React.useState('');
+
+    const requireManagerAccess = (route) => {
+        if (isManager) {
+            navigate(route);
+        } else {
+            setPendingRoute(route);
+            setShowManagerModal(true);
+        }
+    };
+
+    const handleManagerApprove = () => {
+        setShowManagerModal(false);
+        navigate(pendingRoute);
+    };
         
         const navigateToHome = () => 
             navigate('/'); //navigate to Home route
@@ -40,9 +57,15 @@ export default function SalesMenu() {
                     </div>
                 </ul>
             </div>
+            {showManagerModal && (
+                <ManagerOverrideModal
+                    onApprove={handleManagerApprove}
+                    onCancel={() => setShowManagerModal(false)}
+                />
+            )}
             <button 
                 className="History" 
-                onClick={() => navigate("/TransactionHistory")}
+                onClick={() => requireManagerAccess("/TransactionHistory")}
                 >
                 <img src={require('./Html&Css/images/history.png')} alt="History Icon" />
                 <span> Transaction History</span>
