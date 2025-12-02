@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
+import { useAuth } from './Context/AuthContext';
 import './Html&Css/style/ItemCart.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function ItemCart() {
     const navigate = useNavigate();
+    const { currentUser, logout } = useAuth();
+    
     const [menuOpen, setMenuOpen] = React.useState(false);
         
         const navigateToHome = () => 
@@ -115,7 +118,7 @@ export default function ItemCart() {
         }
 
         const saleData = {
-            employee_id: 1,
+            employee_id: currentUser.id,
             payment_type: paymentType,
             subtotal,
             tax,
@@ -166,12 +169,21 @@ export default function ItemCart() {
                <div className="item-cart-display-area">
                     <div className='cartnavDiv'>
                         <button className='cartnavbar' onClick={() => setMenuOpen(!menuOpen)}>☰</button>
-                        <ul className='cartnavMenu' hidden={!menuOpen}>
-                        <button onClick={navigateToHome}>Home</button>
-                        <button onClick={navigateToSales}>Sales</button>
-                        <button onClick={navigateToEmployee}>Employee</button>
-                        <button onClick={navigateToInventory}>Inventory</button>
-                        </ul>
+                            <ul className='cartnavMenu' hidden={!menuOpen}>
+                                <button onClick={navigateToHome}>Home</button>
+                                <button onClick={navigateToSales}>Sales</button>
+                                <button onClick={navigateToEmployee}>Employee</button>
+                                <button onClick={navigateToInventory}>Inventory</button>
+                                <div style={{ marginTop: '20px', padding: '10px', borderTop: '1px solid #444' }}>
+                                    <small>Logged in: <strong>{currentUser?.name} ({currentUser?.role})</strong></small>
+                                    <button onClick={logout} style={{
+                                    background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px'
+                                    }}>
+                                    Logout
+                                    </button>
+                                </div>
+
+                            </ul>
                     </div>
                 <div className="item-cart-products">
                     {products.map(product => (
