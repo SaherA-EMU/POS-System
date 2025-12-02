@@ -7,17 +7,10 @@ export default function ItemLookUp() {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = React.useState(false);
 
-    // Static example data - replace with database call later
-    const [allItems] = React.useState([
-        { id: 1, name: 'T-Shirt', size: 'M', color: 'Blue', price: 19.99, quantity: 50 },
-        { id: 2, name: 'T-Shirt', size: 'L', color: 'Red', price: 19.99, quantity: 30 },
-        { id: 3, name: 'Jeans', size: '32', color: 'Blue', price: 49.99, quantity: 25 },
-        { id: 4, name: 'Jeans', size: '34', color: 'Black', price: 49.99, quantity: 15 },
-        { id: 5, name: 'Sneakers', size: '10', color: 'White', price: 79.99, quantity: 20 },
-        { id: 6, name: 'Sneakers', size: '9', color: 'Black', price: 79.99, quantity: 18 },
-        { id: 7, name: 'Hoodie', size: 'L', color: 'Gray', price: 39.99, quantity: 40 },
-        { id: 8, name: 'Cap', size: 'One Size', color: 'Red', price: 14.99, quantity: 60 }
-    ]);
+    // Fetch items from database
+    const [allItems, setAllItems] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState('');
 
     // Filter states
     const [filters, setFilters] = React.useState({
@@ -34,6 +27,29 @@ export default function ItemLookUp() {
     const navigateToInventory = () => navigate('/InventoryMenu');
     const navigateToEmployee = () => navigate('/EmployeeMenu');
     const { currentUser, logout } = useAuth();
+
+    // Fetch items from database on component mount
+    React.useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                setLoading(true);
+                const res = await fetch('http://localhost:5000/variants');
+                if (!res.ok) {
+                    throw new Error('Failed to fetch items');
+                }
+                const data = await res.json();
+                setAllItems(data);
+                setError('');
+            } catch (err) {
+                console.error('Error fetching items:', err);
+                setError('Unable to load items from database');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchItems();
+    }, []);
 
     // Filter items based on current filters
     const filteredItems = allItems.filter(item => {
@@ -59,6 +75,43 @@ export default function ItemLookUp() {
             maxPrice: '',
             minQuantity: ''
         });
+    };
+
+    // Handle reporting item as lost
+    const handleReportLost = async (item) => {
+        // Show confirmation dialog
+        const confirmed = window.confirm(
+            `Report this item as lost and delete from inventory?\n\n` +
+            `Variant ID: ${item.variant_id}\n` +
+            `Name: ${item.name}\n` +
+            `Size: ${item.size}\n` +
+            `Color: ${item.color}\n` +
+            `Price: $${parseFloat(item.price).toFixed(2)}\n` +
+            `Quantity: ${item.quantity}`
+        );
+
+        if (!confirmed) {
+            return; // User clicked Cancel
+        }
+
+        try {
+            const res = await fetch(`http://localhost:5000/variants/${item.variant_id}`, {
+                method: 'DELETE'
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                alert(`Error: ${data.error || 'Failed to delete item'}`);
+                return;
+            }
+
+            // Remove the item from the local state to update UI
+            setAllItems(prevItems => prevItems.filter(i => i.variant_id !== item.variant_id));
+            alert('Item reported as lost and removed from inventory');
+        } catch (err) {
+            console.error('Error deleting item:', err);
+            alert('Unable to connect to server');
+        }
     };
 
     return (
@@ -165,29 +218,55 @@ export default function ItemLookUp() {
                     backgroundColor: 'White',
                     color: '#1f1f1f'
                 }}>
-                    {filteredItems.length === 0 ? (
+                    {loading ? (
+                        <p style={{ textAlign: 'center', color: '#666' }}>Loading items...</p>
+                    ) : error ? (
+                        <p style={{ textAlign: 'center', color: '#d9534f' }}>{error}</p>
+                    ) : filteredItems.length === 0 ? (
                         <p style={{ textAlign: 'center', color: '#666' }}>No items to display</p>
                     ) : (
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead>
                                 <tr style={{ borderBottom: '2px solid goldenrod' }}>
-                                    <th style={{ padding: '10px', textAlign: 'left' }}>Product ID</th>
+                                    <th style={{ padding: '10px', textAlign: 'left' }}>Variant ID</th>
                                     <th style={{ padding: '10px', textAlign: 'left' }}>Name</th>
                                     <th style={{ padding: '10px', textAlign: 'left' }}>Size</th>
                                     <th style={{ padding: '10px', textAlign: 'left' }}>Color</th>
                                     <th style={{ padding: '10px', textAlign: 'right' }}>Price</th>
                                     <th style={{ padding: '10px', textAlign: 'right' }}>Quantity</th>
+                                    <th style={{ padding: '10px', textAlign: 'center' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredItems.map(item => (
-                                    <tr key={item.id} style={{ borderBottom: '1px solid #eee' }}>
-                                        <td style={{ padding: '10px' }}>{item.id}</td>
+                                    <tr key={item.variant_id} style={{ borderBottom: '1px solid #eee' }}>
+                                        <td style={{ padding: '10px' }}>{item.variant_id}</td>
                                         <td style={{ padding: '10px' }}>{item.name}</td>
                                         <td style={{ padding: '10px' }}>{item.size}</td>
                                         <td style={{ padding: '10px' }}>{item.color}</td>
-                                        <td style={{ padding: '10px', textAlign: 'right' }}>${item.price.toFixed(2)}</td>
+                                        <td style={{ padding: '10px', textAlign: 'right' }}>${parseFloat(item.price).toFixed(2)}</td>
                                         <td style={{ padding: '10px', textAlign: 'right' }}>{item.quantity}</td>
+                                        <td style={{ padding: '10px', textAlign: 'center' }}>
+                                            <button
+                                                onClick={() => handleReportLost(item)}
+                                                style={{
+                                                    padding: '3px 8px',
+                                                    backgroundColor: '#d9534f',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '3px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '11px',
+                                                    height: 'auto',
+                                                    width: 'auto',
+                                                    margin: '0',
+                                                    display: 'inline-block',
+                                                    flexDirection: 'row'
+                                                }}
+                                            >
+                                                Report Lost
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

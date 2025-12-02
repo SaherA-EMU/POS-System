@@ -48,10 +48,6 @@ export default function InventoryMenu() {
                 <img src={require('./Html&Css/images/add.png')} alt="Add Item Icon"/>
                 <span> Add Item</span>
             </button>
-            <button className="LostItem" onClick={() => alert('this feature is not available yet')}>
-                <img src={require('./Html&Css/images/lost-items.png')} alt="LostItem" />
-                <span> Lost Item</span>
-            </button>
         </div>
     );
 }

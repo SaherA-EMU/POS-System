@@ -94,10 +94,57 @@ export default function AddItem() {
         }
     };
 
-    const handleSubmit = (e) => {
+    const [message, setMessage] = React.useState({ text: '', type: '' });
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Database implementation will be added later
-        console.log('Item data:', formData);
+        setMessage({ text: '', type: '' });
+        setIsSubmitting(true);
+
+        // Validate all fields are filled
+        if (!formData.name || !formData.size || !formData.color || !formData.price || !formData.quantity) {
+            setMessage({ text: 'Please fill in all fields', type: 'error' });
+            setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:5000/variants', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    size: formData.size,
+                    color: formData.color,
+                    price: parseFloat(formData.price),
+                    quantity: parseInt(formData.quantity)
+                })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                setMessage({ text: data.error || 'Failed to add item', type: 'error' });
+            } else {
+                setMessage({ text: data.message || 'Item added successfully!', type: 'success' });
+                // Reset form
+                setFormData({
+                    name: '',
+                    size: '',
+                    color: '',
+                    price: '',
+                    quantity: ''
+                });
+            }
+        } catch (err) {
+            console.error('Error adding item:', err);
+            setMessage({ text: 'Unable to connect to server', type: 'error' });
+        } finally {
+            setIsSubmitting(false);
+            // Clear message after 3 seconds
+            setTimeout(() => setMessage({ text: '', type: '' }), 3000);
+        }
     };
 
     return (
@@ -223,8 +270,29 @@ export default function AddItem() {
                         />
                     </div>
 
-                    <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
-                        Add Item
+                    {message.text && (
+                        <div style={{
+                            padding: '10px',
+                            marginBottom: '15px',
+                            borderRadius: '4px',
+                            backgroundColor: message.type === 'success' ? '#d4edda' : '#f8d7da',
+                            color: message.type === 'success' ? '#155724' : '#721c24',
+                            border: `1px solid ${message.type === 'success' ? '#c3e6cb' : '#f5c6cb'}`
+                        }}>
+                            {message.text}
+                        </div>
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        style={{
+                            padding: '10px 20px',
+                            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            opacity: isSubmitting ? 0.6 : 1
+                        }}
+                    >
+                        {isSubmitting ? 'Adding...' : 'Add Item'}
                     </button>
                 </form>
                 <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
