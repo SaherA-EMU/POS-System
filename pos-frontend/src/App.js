@@ -3,6 +3,7 @@ import Login from './components/Login';
 import MainMenu from './MainMenu';
 import SalesMenu from './SalesMenu';
 import InventoryMenu from './InventoryMenu';
+import EmployeeMenu from './EmployeeMenu';
 import ItemCart from './ItemCart';
 import ItemLookUp from './ItemLookUp';
 import AddItem from './AddItem';
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<MainMenu />} />
         <Route path="/SalesMenu" element={<SalesMenu />} />
         <Route path="/InventoryMenu" element={<InventoryMenu />} />
+        <Route path="/EmployeeMenu" element={<EmployeeMenu />} />
         <Route path="/ItemCart" element={<ItemCart />} />
         <Route path="/ItemLookUp" element={<ItemLookUp />} />
         <Route path="/AddItem" element={<AddItem />} />
