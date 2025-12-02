@@ -9,6 +9,7 @@ const productsRouter = require('./routes/products');
 const cors = require('cors');
 const variantsRouter = require('./routes/variants');
 const salesRouter = require('./routes/sales');
+const authRouter = require('./routes/auth');
 
 
 // Initialize the Express application, which handles HTTP requests and responses
@@ -23,6 +24,7 @@ app.use('/variants', variantsRouter);
 
 app.use('/products', productsRouter);
 app.use('/sales', salesRouter);
+app.use('/auth', authRouter);
 
 // Basic route to test the server, request and response
 app.get('/', (req, res) => {

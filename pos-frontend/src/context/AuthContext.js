@@ -6,30 +6,29 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Only load user from localStorage -- API not implemented yet
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    const saved = localStorage.getItem('currentUser');
+    if (saved) {
+      setCurrentUser(JSON.parse(saved));
     }
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const login = (user) => {
+    setCurrentUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser');
   };
 
-  const isManager = user?.role === 'manager';
+  const isManager = currentUser?.role === "Manager";
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isManager }}>
+    <AuthContext.Provider value={{ currentUser, login, logout, isManager }}>
       {children}
     </AuthContext.Provider>
   );

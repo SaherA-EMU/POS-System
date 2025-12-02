@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';  // Make sure this path is correct
+import { AuthProvider } from './Context/AuthContext';  // Make sure this path is correct
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

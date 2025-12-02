@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from './Context/AuthContext';
 import './Html&Css/style/MainMenu.css';
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +33,7 @@ export default function ItemLookUp() {
     const navigateToSales = () => navigate('/SalesMenu');
     const navigateToInventory = () => navigate('/InventoryMenu');
     const navigateToEmployee = () => navigate('/EmployeeMenu');
+    const { currentUser, logout } = useAuth();
 
     // Filter items based on current filters
     const filteredItems = allItems.filter(item => {
@@ -68,6 +70,14 @@ export default function ItemLookUp() {
                     <button onClick={navigateToSales}>Sales</button>
                     <button onClick={navigateToEmployee}>Employee</button>
                     <button onClick={navigateToInventory}>Inventory</button>
+                    <div style={{ marginTop: '20px', padding: '10px', borderTop: '1px solid #444' }}>
+                        <small>Logged in: <strong>{currentUser?.name} ({currentUser?.role})</strong></small>
+                        <button onClick={logout} style={{
+                            background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px'
+                        }}>
+                            Logout
+                        </button>
+                    </div>
                 </ul>
             </div>
             <div style={{ padding: '20px', width: '80vw', margin: '0 auto', paddingTop: '120px', boxSizing: 'border-box' }}>
