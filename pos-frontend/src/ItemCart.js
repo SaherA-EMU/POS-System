@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useAuth } from './Context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import './Html&Css/style/ItemCart.css';
 import { useNavigate } from 'react-router-dom';
 

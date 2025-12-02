@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './Html&Css/style/MainMenu.css';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './Context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import ManagerOverrideModal from './components/ManagerOverrideModal';
 
 function MainMenu() {

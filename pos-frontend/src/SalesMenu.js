@@ -1,6 +1,6 @@
 import './Html&Css/style/MainMenu.css';
 import React from 'react';
-import { useAuth } from './Context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import ManagerOverrideModal from './components/ManagerOverrideModal';
 import { useNavigate } from 'react-router-dom';
 
