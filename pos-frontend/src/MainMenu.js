@@ -68,11 +68,6 @@ function MainMenu() {
           <img src={require("./Html&Css/images/warehouse.png")} alt="Inventory" />
           <span>Inventory {isManager ? '' : '(Manager Only)'}</span>
         </button>
-
-        <button className="Admin" onClick={() => requireManagerAccess('/Admin')}>
-          <img src={require("./Html&Css/images/user.png")} alt="Admin" />
-          <span>Admin (Manager Only)</span>
-        </button>
       </div>
     </>
   );
