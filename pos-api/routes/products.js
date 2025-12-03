@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
+// POST /products
+// Expects JSON { name: string, category_id: number }
 router.post('/', async (req, res) => {
   const {name, category_id} = req.body;
 
@@ -25,6 +27,7 @@ router.post('/', async (req, res) => {
 });
 
 // This will be for getting products
+// GET /products
 router.get('/', async (req, res) => {
   const {id} = req.params;
 

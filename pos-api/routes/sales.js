@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db");
 
+// POST /sales/complete
+// Expects JSON { employee_id: number, payment_type: string, total: number, sale_items: [{ product_id: number, price: number }] }
 router.post("/complete", async (req, res) => {
     console.log("/sales/complete HIT");
     console.log("REQ BODY:", JSON.stringify(req.body, null, 2));
@@ -44,6 +46,8 @@ router.post("/complete", async (req, res) => {
     }
 });
 
+// GET /sales/history
+// Returns list of all sales with details
 router.get("/history", async (req, res) => {
   try {
     const result = await pool.query(

@@ -5,6 +5,8 @@ const pool = require ('../db');
 console.log("DB = ", process.env.DB_CONNECTION_STRING);
 
 // GET all variants with optional filters (for ItemLookUp)
+// GET /variants
+// Returns list of all variants with product names
 router.get('/', async (req, res) => {
     try {
         const result = await pool.query(
@@ -27,6 +29,8 @@ router.get('/', async (req, res) => {
 });
 
 // GET variants by product_id
+// GET /variants/:product_id
+// Returns list of variants for a specific product
 router.get('/:product_id', async (req, res) => {
     const {product_id} = req.params;
     try {
@@ -42,6 +46,8 @@ router.get('/:product_id', async (req, res) => {
 });
 
 // POST new variant (for AddItem)
+// POST /variants
+// Expects JSON { name: string, size: string, color: string, price: number, quantity: number }
 router.post('/', async (req, res) => {
     const { name, size, color, price, quantity } = req.body;
 
@@ -107,6 +113,8 @@ router.post('/', async (req, res) => {
 });
 
 // DELETE variant (for reporting lost items)
+// DELETE /variants/:variant_id
+// Expects URL param variant_id
 router.delete('/:variant_id', async (req, res) => {
     const { variant_id } = req.params;
 
